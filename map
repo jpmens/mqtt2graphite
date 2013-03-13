@@ -1,0 +1,42 @@
+#(@)mqtt2graphite map file
+
+# Each line has two OR three values in it. Values MUST no contain white
+# space. 
+
+# First value:
+#	n 	payload contains a number (int or float) use that
+#	j	payload is JSON. Extract all keys with numeric values
+
+# Second value:
+#	Subscribe to this channel. MQTT wildcards (#) are allowed.
+
+# Third (optional) value:
+#	The MQTT topic is to be mapped to this key in Carbon (Graphite)
+#	Use periods as separators, just like Carbon expects them. If 
+#	this value is not specified, the MQTT topic name will be used,
+#	with slashes (/) converted to dots (.)
+
+n	test/mosquitto/messages/load/received
+n	test/mosquitto/messages/load/#
+
+n	test/jp/j1
+
+n	$SYS/broker/load/messages/received/1min		test.mosquitto.messages.load.received
+n	$SYS/broker/load/messages/sent/1min		test.mosquitto.messages.load.sent
+
+j	test/jp/j2
+
+j	test/jp/j3					test.jp.json
+
+# The last line above means, subscribe to the MQTT topic of "test/jp/jp3",
+# extract JSON, and translate the topic to a the "test.jp.json.___" key.
+# Submitting an MQTT message payload of
+#
+#	{ "size":69,"temp": 89.3, "gas": " 88", "name": "JP Mens" }
+#
+# will produce the following Carbon entries:
+#
+#	test.jp.json.gas 88.000000 1363169729
+#	test.jp.json.temp 89.300000 1363169729
+#	test.jp.json.size 69.000000 1363169729
+
