@@ -8,6 +8,8 @@ Values in the payload can be simple numbers (`92`, `12.7`) or [JSON][3] strings.
 In the latter case, all JSON names/keys are extracted and if their values are 
 numeric, these are then sent off to Carbon (see example below)
 
+![](jmbp-532.png)
+
 ## Requirements
 
 * [mosquitto.py](http://mosquitto.org/documentation/python/)
