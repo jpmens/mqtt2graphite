@@ -86,6 +86,8 @@ def on_message(mosq, userdata, msg):
                     number = float(msg.payload)
                     lines.append("%s %f %d" % (carbonkey, number, now))
                 except ValueError:
+                    logging.info("Topic %s contains non-numeric payload [%s]" % 
+                            (msg.topic, msg.payload))
                     return
 
             elif type == 'j':
@@ -97,11 +99,13 @@ def on_message(mosq, userdata, msg):
                         if is_number(st[k]):
                             lines.append("%s.%s %f %d" % (carbonkey, k, float(st[k]), now))
                 except:
+                    logging.info("Topic %s contains non-JSON payload [%s]" %
+                            (msg.topic, msg.payload))
                     return
 
             else:
-                sys.stderr.write("Unknown mapping key [%s]\n", type)
-                sys.exit(2)
+                logging.info("Unknown mapping key [%s]", type)
+                return
 
             message = '\n'.join(lines) + '\n'
             logging.debug("%s", message)
