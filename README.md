@@ -55,5 +55,5 @@ A lot.
   transmit to Carbon via StatsD?
 
   [1]: http://graphite.wikidot.com/
-  [2]: http://graphite.wikidot.com/getting-your-data-into-graphite
+  [2]: http://graphite.wikidot.com/carbon
   [3]: http://json.org
