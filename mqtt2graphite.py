@@ -67,7 +67,7 @@ def on_message(mosq, userdata, msg):
     # Find out how to handle the topic in this message: slurp through
     # our map 
     for t in map:
-        if mosquitto.topic_matches_sub(msg.topic, t):
+        if mosquitto.topic_matches_sub(t, msg.topic):
             # print "%s matches MAP(%s) => %s" % (msg.topic, t, map[t])
 
             # Must we rename the received msg topic into a different
