@@ -3,7 +3,7 @@
 __author__ = "Jan-Piet Mens"
 __copyright__ = "Copyright (C) 2013 by Jan-Piet Mens"
 
-import mosquitto
+import paho.mqtt.client as paho
 import ssl
 import os, sys
 import logging
@@ -67,7 +67,7 @@ def on_message(mosq, userdata, msg):
     # Find out how to handle the topic in this message: slurp through
     # our map 
     for t in map:
-        if mosquitto.topic_matches_sub(t, msg.topic):
+        if paho.topic_matches_sub(t, msg.topic):
             # print "%s matches MAP(%s) => %s" % (msg.topic, t, map[t])
 
             # Must we rename the received msg topic into a different
@@ -155,7 +155,7 @@ if __name__ == '__main__':
         'carbon_port'   : CARBON_PORT,
         'map'       : map,
     }
-    mqttc = mosquitto.Mosquitto(client_id, clean_session=True, userdata=userdata)
+    mqttc = paho.Client(client_id, clean_session=True, userdata=userdata)
     mqttc.on_message = on_message
     mqttc.on_connect = on_connect
     mqttc.on_disconnect = on_disconnect

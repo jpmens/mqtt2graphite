@@ -12,7 +12,7 @@ numeric, these are then sent off to Carbon (see example below)
 
 ## Requirements
 
-* [mosquitto.py](http://mosquitto.org/documentation/python/)
+* [Paho Python MQTT](https://pypi.python.org/pypi/paho-mqtt)
 * A running Carbon/Graphite server with UDP-enabled reception
 * Access to an MQTT broker. (I use [Mosquitto](http://mosquitto.org/))
 
