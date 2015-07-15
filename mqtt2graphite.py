@@ -18,7 +18,7 @@ CARBON_PORT = 2003
 
 LOGFORMAT = '%(asctime)-15s %(message)s'
 
-DEBUG = 1
+DEBUG = os.environ.get('DEBUG', True)
 if DEBUG:
     logging.basicConfig(level=logging.DEBUG, format=LOGFORMAT)
 else:
@@ -130,7 +130,12 @@ if __name__ == '__main__':
     logging.debug("DEBUG MODE")
 
     map = {}
-    f = open('map')
+    if len(sys.argv) > 1:
+        map_file = sys.argv[1]
+    else:
+        map_file = 'map'
+
+    f = open(map_file)
     for line in f.readlines():
         line = line.rstrip()
         if len(line) == 0 or line[0] == '#':
