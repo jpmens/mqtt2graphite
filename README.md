@@ -18,9 +18,9 @@ numeric, these are then sent off to Carbon (see example below)
 
 ## Running
 
-* Set the environment variable `MQTT_HOST` to the name/IP of your MQTT broker. (`localhost` is default.)
+* Set the environment variable `DEBUG` and `MQTT_HOST` to the name/IP of your MQTT broker. (`localhost` is default.)
 * Edit the `map` file
-* Run `./mqtt2graphite.py`
+* Run `./mqtt2graphite.py [map file]` if the `map file` is not provided a file called `map` in the current working directory is used
 
 ## Handling numeric payloads
 
@@ -49,8 +49,7 @@ test.jp.j2.size 69.000000 1363169282
 
 A lot. 
 
-* Add configuration file in which we specify username/password, TLS certificates,
-  and path to the "map" file.
+* Add configuration file in which we specify username/password and TLS certificates.
 * I'm not experienced enough with high volume of messages, so this should maybe
   transmit to Carbon via StatsD?
 
