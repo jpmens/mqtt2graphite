@@ -122,9 +122,8 @@ def on_disconnect(mosq, userdata, rc):
         logging.info("Unexpected disconnect (rc %s); reconnecting in 5 seconds" % rc)
         time.sleep(5)
 
-if __name__ == '__main__':
     
-
+def main():
     logging.info("Starting %s" % client_id)
     logging.info("INFO MODE")
     logging.debug("DEBUG MODE")
@@ -161,6 +160,7 @@ if __name__ == '__main__':
         'map'       : map,
     }
     mqttc = paho.Client(client_id, clean_session=True, userdata=userdata)
+    global mqttc
     mqttc.on_message = on_message
     mqttc.on_connect = on_connect
     mqttc.on_disconnect = on_disconnect
@@ -175,3 +175,5 @@ if __name__ == '__main__':
 
     mqttc.loop_forever()
 
+if __name__ == '__main__':
+	main()
