@@ -8,7 +8,7 @@ if [ "$2" != "" ]; then
     MQTT_HOST=$1
     CARBON_SERVER=$2
 else
-    echo "Usage: $0 mqtt.hostname carbon.hostname '[Debug monde (True/False)]"
+    echo "Usage: $0 mqtt.hostname carbon.hostname '[Debug mode (True/False)]"
     exit
 fi
 
@@ -53,5 +53,5 @@ if [  ! -f $MQTT_HOST.conf ]; then
     cp map $MQTT_HOST.conf
 fi
 
-echo "execute or add this cmd 'supervisord -c /etc/supervisord.conf' in your /etc/rc.local"
+echo "execute or add this cmd 'supervisord -c /etc/supervisord.conf' to your /etc/rc.local"
 
