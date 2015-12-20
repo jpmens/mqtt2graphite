@@ -16,11 +16,19 @@ numeric, these are then sent off to Carbon (see example below)
 * A running Carbon/Graphite server with UDP-enabled reception
 * Access to an MQTT broker. (I use [Mosquitto](http://mosquitto.org/))
 
+## Installation and Configuration
+
+* Configure the mqtt2graphite init script
+
+```bash
+pip install git+https://github.com/jpmens/mqtt2graphite.git
+./init_server.sh mqtt.hostname
+```
+
 ## Running
 
-* Set the environment variable `DEBUG` and `MQTT_HOST` to the name/IP of your MQTT broker. (`localhost` is default.)
-* Edit the `map` file
-* Run `./mqtt2graphite.py [map file]` if the `map file` is not provided a file called `map` in the current working directory is used
+* Edit the `mqtt.hostname.conf` file
+* Run or add this cmd `supervisord -c /etc/supervisord.conf` in your /etc/rc.local
 
 ## Handling numeric payloads
 

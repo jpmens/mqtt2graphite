@@ -13,7 +13,7 @@ import json
 import signal
 
 MQTT_HOST = os.environ.get('MQTT_HOST', 'localhost')
-CARBON_SERVER = '127.0.0.1'
+CARBON_SERVER = os.environ.get('CARBON_SERVER', '127.0.0.1')
 CARBON_PORT = 2003
 
 LOGFORMAT = '%(asctime)-15s %(message)s'
