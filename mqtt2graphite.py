@@ -159,8 +159,8 @@ def main():
         'carbon_port'   : CARBON_PORT,
         'map'       : map,
     }
-    mqttc = paho.Client(client_id, clean_session=True, userdata=userdata)
     global mqttc
+    mqttc = paho.Client(client_id, clean_session=True, userdata=userdata)
     mqttc.on_message = on_message
     mqttc.on_connect = on_connect
     mqttc.on_disconnect = on_disconnect
