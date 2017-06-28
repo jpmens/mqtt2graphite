@@ -45,7 +45,7 @@ def is_number(s):
         return False
 
 
-def on_connect(mosq, userdata, rc):
+def on_connect(mosq, userdata, flags, rc):
     logging.info("Connected to broker at %s as %s" % (MQTT_HOST, client_id))
 
     mqttc.publish("/clients/" + client_id, "Online")
