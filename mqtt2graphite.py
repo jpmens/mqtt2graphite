@@ -45,7 +45,7 @@ def is_number(s):
         return False
 
 
-def on_connect(mosq, userdata, rc):
+def on_connect(mosq, userdata, flags, rc):
     logging.info("Connected to broker at %s as %s" % (MQTT_HOST, client_id))
 
     mqttc.publish("/clients/" + client_id, "Online")
@@ -159,8 +159,8 @@ def main():
         'carbon_port'   : CARBON_PORT,
         'map'       : map,
     }
-    mqttc = paho.Client(client_id, clean_session=True, userdata=userdata)
     global mqttc
+    mqttc = paho.Client(client_id, clean_session=True, userdata=userdata)
     mqttc.on_message = on_message
     mqttc.on_connect = on_connect
     mqttc.on_disconnect = on_disconnect
