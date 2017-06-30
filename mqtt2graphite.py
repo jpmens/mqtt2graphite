@@ -76,6 +76,8 @@ def on_message(mosq, userdata, msg):
             if remap is None:
                 carbonkey = msg.topic.replace('/', '.')
             else:
+                if '#' in remap:
+                    remap = remap.replace('#', msg.topic.replace('/', '.'))
                 carbonkey = remap.replace('/', '.')
             logging.debug("CARBONKEY is [%s]" % carbonkey)
 
