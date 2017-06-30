@@ -12,9 +12,10 @@ import socket
 import json
 import signal
 
-MQTT_HOST = os.environ.get('MQTT_HOST', 'localhost')
+MQTT_HOST = os.environ.get('MQTT_HOST', '127.0.0.1')
+MQTT_PORT = int(os.environ.get('MQTT_PORT', 1883))
 CARBON_SERVER = os.environ.get('CARBON_SERVER', '127.0.0.1')
-CARBON_PORT = 2003
+CARBON_PORT = int(os.environ.get('CARBON_PORT', 2003))
 
 LOGFORMAT = '%(asctime)-15s %(message)s'
 
@@ -58,8 +59,6 @@ def on_connect(mosq, userdata, flags, rc):
 def on_message(mosq, userdata, msg):
 
     sock = userdata['sock']
-    host = userdata['carbon_server']
-    port = userdata['carbon_port']
     lines = []
     now = int(time.time())
 
@@ -110,7 +109,7 @@ def on_message(mosq, userdata, msg):
             message = '\n'.join(lines) + '\n'
             logging.debug("%s", message)
 
-            sock.sendto(message, (host, port))
+            sock.sendto(message, (CARBON_SERVER, CARBON_PORT))
   
 def on_subscribe(mosq, userdata, mid, granted_qos):
     pass
@@ -155,8 +154,6 @@ def main():
 
     userdata = {
         'sock'      : sock,
-        'carbon_server' : CARBON_SERVER,
-        'carbon_port'   : CARBON_PORT,
         'map'       : map,
     }
     global mqttc
@@ -168,7 +165,7 @@ def main():
 
     mqttc.will_set("clients/" + client_id, payload="Adios!", qos=0, retain=False)
 
-    mqttc.connect(MQTT_HOST, 1883, 60)
+    mqttc.connect(MQTT_HOST, MQTT_PORT, 60)
 
     signal.signal(signal.SIGTERM, cleanup)
     signal.signal(signal.SIGINT, cleanup)
